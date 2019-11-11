@@ -1,5 +1,11 @@
 package lt.pauliusk.codetheory.controller.constant;
 
+/**
+ * Declares the working mode, which can be:
+ * BMP_FILE: a bmp file is read, encoded, transmitted and decoded
+ * BINARY_INPUT: a binary string is encoded, transmitted and decoded
+ * TEXT_INPUT: text, which is encoded, transmitted and decoded
+ */
 public enum Mode {
     BMP_FILE,
     BINARY_INPUT,
