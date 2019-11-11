@@ -37,7 +37,12 @@
             <VBox prefHeight="600.0" prefWidth="427.0" spacing="5.0">
                <children>
                   <Label text="Events:" />
-                  <ListView fx:id="mEventListView" prefHeight="580.0" prefWidth="427.0" VBox.vgrow="ALWAYS" />
+                  <ListView fx:id="mEventListView" prefHeight="580.0" prefWidth="424.0" VBox.vgrow="ALWAYS" />
+                  <Label text="0" fx:id="mEventCountLabel">
+                     <graphic>
+                        <Label text="Total count:" />
+                     </graphic>
+                  </Label>
                </children>
             </VBox>
          </children>

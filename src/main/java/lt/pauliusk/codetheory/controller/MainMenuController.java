@@ -2,6 +2,7 @@ package lt.pauliusk.codetheory.controller;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import lt.pauliusk.codetheory.controller.constant.Mode;
@@ -34,9 +35,16 @@ public class MainMenuController extends AbstractController {
     @FXML
     private TextField mErrorRateTextField;
 
+    @FXML
+    private CheckBox mShowDebugWindows;
+
     @Override
     public void setParameters(Map<String, Object> args) {
         if (args != null) {
+            mShowDebugWindows.setSelected(
+                    (Boolean) args.get("debug")
+            );
+
             mMTextField.setText(
                     args.get("m").toString()
             );
@@ -118,6 +126,7 @@ public class MainMenuController extends AbstractController {
         params.put("m", m);
         params.put("errorRate", errorRate / 100);
         params.put("mode", mChoiceBox.getSelectionModel().getSelectedItem());
+        params.put("debug", mShowDebugWindows.isSelected());
 
         window.getController().setParameters(params);
 
