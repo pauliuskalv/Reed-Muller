@@ -2,17 +2,16 @@ package lt.pauliusk.codetheory.util.math.impl;
 
 import lt.pauliusk.codetheory.util.math.IMatrix;
 
-import java.util.Iterator;
-import java.util.Spliterator;
-import java.util.function.Consumer;
-
 public class Matrix implements IMatrix {
     private int mRowCount;
     private int mColumnCount;
 
     private int[][] mData;
 
-    public Matrix(int rowCount, int colCount) {
+    Matrix(int rowCount, int colCount) {
+        mRowCount = rowCount;
+        mColumnCount = colCount;
+
         mData = new int[rowCount][colCount];
     }
 
@@ -23,7 +22,7 @@ public class Matrix implements IMatrix {
         mData = new int[mRowCount][mColumnCount];
 
         for (int i = 0; i < mData.length; i ++) {
-            System.arraycopy(mData[i], 0, mData[i], 0, mColumnCount);
+            System.arraycopy(data[i], 0, mData[i], 0, mColumnCount);
         }
     }
 
@@ -47,26 +46,29 @@ public class Matrix implements IMatrix {
         if (mColumnCount != matrix.getRowCount())
             return null;
 
-        return null;
+        IMatrix newMatrix = new Matrix(mRowCount, matrix.getColumnCount());
+
+        for (int i = 0; i < newMatrix.getRowCount(); i++) {
+            for (int j = 0; j < newMatrix.getColumnCount(); j++) {
+                for (int k = 0; k < mColumnCount; k++) {
+                    newMatrix.getData()[i][j] += (mData[i][k] * matrix.getData()[k][j]);
+                }
+            }
+        }
+
+        return newMatrix;
     }
 
     @Override
-    public IMatrix kroneckerProduct(IMatrix matrix) {
-        return null;
-    }
+    public IMatrix transpose() {
+        IMatrix toReturnTransposed = new Matrix(mColumnCount, mRowCount);
 
-    @Override
-    public Iterator<int[]> iterator() {
-        return null;
-    }
+        for (int i = 0; i < mRowCount; i++) {
+            for (int j = 0; j < mColumnCount; j++) {
+                toReturnTransposed.getData()[j][i] = mData[i][j];
+            }
+        }
 
-    @Override
-    public void forEach(Consumer<? super int[]> action) {
-
-    }
-
-    @Override
-    public Spliterator<int[]> spliterator() {
-        return null;
+        return toReturnTransposed;
     }
 }

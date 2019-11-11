@@ -1,7 +1,5 @@
 package lt.pauliusk.codetheory.util.gui.impl;
 
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
 import lt.pauliusk.codetheory.util.gui.IWindowPathResolver;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -10,15 +8,17 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Component
 public class WindowPathResolver implements IWindowPathResolver {
-    private Logger mLogger = LoggerFactory.getLogger(WindowPathResolver.class);
+    private Logger mLogger = Logger.getLogger(WindowPathResolver.class.getName());
 
     private JSONArray mWindowDefinitions;
 
     public WindowPathResolver() throws IOException {
-        mWindowDefinitions = new JSONArray(getClass().getResource("/gui/window.config").openStream());
+        mWindowDefinitions = new JSONArray(new String(getClass().getResource("/gui/window.config").openStream().readAllBytes()));
     }
 
     @Override
@@ -87,7 +87,7 @@ public class WindowPathResolver implements IWindowPathResolver {
                 return obj;
         }
 
-        mLogger.error("Window with name " + qualifier + " not found");
+        mLogger.log(Level.SEVERE, "Window with name " + qualifier + " not found");
 
         return null;
     }

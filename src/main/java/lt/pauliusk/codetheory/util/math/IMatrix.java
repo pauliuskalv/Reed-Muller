@@ -1,11 +1,11 @@
 package lt.pauliusk.codetheory.util.math;
 
-public interface IMatrix extends Iterable<int[]> {
+public interface IMatrix {
     int getColumnCount();
     int getRowCount();
 
     int[][] getData();
 
     IMatrix multiply(IMatrix matrix);
-    IMatrix kroneckerProduct(IMatrix matrix);
+    IMatrix transpose();
 }

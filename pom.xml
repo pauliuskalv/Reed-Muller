@@ -9,8 +9,37 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>8</source>
-                    <target>8</target>
+                    <source>12</source>
+                    <target>12</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>lt.pauliusk.codetheory.Main</mainClass>
+                    <arguments>
+                        <!--
+                        <argument>argument1</argument>
+                        -->
+                    </arguments>
+                    <systemProperties>
+                        <!--
+                        <systemProperty>
+                            <key>myproperty</key>
+                            <value>myvalue</value>
+                        </systemProperty>
+                        -->
+                    </systemProperties>
                 </configuration>
             </plugin>
         </plugins>
@@ -44,6 +73,7 @@
             <version>20180813</version>
         </dependency>
 
+
         <!-- OpenJFX dependencies -->
         <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
         <dependency>
@@ -63,6 +93,13 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
+            <version>${openjfx.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-graphics -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
             <version>${openjfx.version}</version>
         </dependency>
     </dependencies>

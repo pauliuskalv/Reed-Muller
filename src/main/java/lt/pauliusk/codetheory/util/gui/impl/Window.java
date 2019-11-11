@@ -12,7 +12,7 @@ public class Window extends Stage implements IWindow {
     private Map<String, Object> mArgs;
     private IController mController;
 
-    public Window(Parent root) {
+    Window(Parent root) {
         super();
 
         this.setScene(new Scene(root));
@@ -53,7 +53,7 @@ public class Window extends Stage implements IWindow {
         if (args.containsKey("height"))
             this.setHeight((Double) args.get("height"));
         if (args.containsKey("width"))
-            this.setHeight((Double) args.get("width"));
+            this.setWidth((Double) args.get("width"));
 
         if (args.containsKey("min_height"))
             this.setMinHeight((Double) args.get("min_height"));

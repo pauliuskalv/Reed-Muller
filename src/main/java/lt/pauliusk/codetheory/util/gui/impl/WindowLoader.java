@@ -1,19 +1,20 @@
 package lt.pauliusk.codetheory.util.gui.impl;
 
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+
 import lt.pauliusk.codetheory.util.gui.IWindow;
 import lt.pauliusk.codetheory.util.gui.IWindowLoader;
 import lt.pauliusk.codetheory.util.gui.IWindowPathResolver;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Component
 public class WindowLoader implements IWindowLoader {
@@ -22,16 +23,16 @@ public class WindowLoader implements IWindowLoader {
     @Autowired
     private IWindowPathResolver mWindowPathResolver;
 
-    private Logger mLogger = LoggerFactory.getLogger(WindowLoader.class);
+    private Logger mLogger = Logger.getLogger(WindowLoader.class.getName());
 
     public IWindow getWindow(String name) {
         try {
             IWindow window = createWindowFromPath(mWindowPathResolver.resolveToPath(name));
-            mWindowPathResolver.resolveAllParameters(name);
+            window.setParameters(mWindowPathResolver.resolveAllParameters(name));
 
             return window;
         } catch (IOException e) {
-            mLogger.error("An exception occurred while loading a window from a layout file.", e);
+            mLogger.log(Level.SEVERE, "An exception occurred while loading a window from a layout file.", e);
 
             return null;
         }
@@ -44,7 +45,7 @@ public class WindowLoader implements IWindowLoader {
 
             return window;
         } catch (IOException e) {
-            mLogger.error("An exception occurred while loading a window from a layout file.", e);
+            mLogger.log(Level.SEVERE, "An exception occurred while loading a window from a layout file.", e);
 
             return null;
         }
@@ -56,6 +57,9 @@ public class WindowLoader implements IWindowLoader {
         IWindow window = new Window(layout);
 
         window.setController(loader.getController());
+
+        // Also set the parent window for main controller
+        window.getController().setParentWindow(window);
 
         return window;
     }
