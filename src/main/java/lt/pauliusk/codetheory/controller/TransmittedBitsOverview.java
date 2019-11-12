@@ -42,6 +42,8 @@ public class TransmittedBitsOverview extends AbstractController {
     @FXML
     private TextArea mEncodedBitsOverview;
     @FXML
+    private TextArea mTransmittedBitsOverview;
+    @FXML
     private TextArea mDecodedBitsOverview;
     @FXML
     private ListView<String> mEventListView;
@@ -59,8 +61,6 @@ public class TransmittedBitsOverview extends AbstractController {
     private IWindow mDebugDecoded;
     private Mode mMode;
     private byte[] mHeader;
-
-    private boolean[][] mTransmittedBits;
 
     private Map<String, Object> mOldParams;
 
@@ -165,9 +165,13 @@ public class TransmittedBitsOverview extends AbstractController {
                 mEncodedBitsOverview.getText()
         );
 
-        mTransmittedBits = mCommunicator.transmit(
-                toTransmitBits,
-                mErrorRate
+        mTransmittedBitsOverview.setText(
+                mStringBooleanConverter.convertFromBooleanArray(
+                        mCommunicator.transmit(
+                                toTransmitBits,
+                                mErrorRate
+                        )
+                )
         );
 
         mEventListView.setItems(
@@ -184,12 +188,17 @@ public class TransmittedBitsOverview extends AbstractController {
 
     @FXML
     private void onDecodeButtonButtonClicked() {
-        if (mTransmittedBits == null) {
+        if (mTransmittedBitsOverview.getText().isEmpty()) {
             mAlertBuilder.error("You haven't transmitted the encoded bits yet");
             return;
         }
 
-        boolean[][] decodedBits = mCommunicator.decode(mTransmittedBits, mM);
+        boolean[][] decodedBits = mCommunicator.decode(
+                mStringBooleanConverter.convertFromString(
+                        mTransmittedBitsOverview.getText()
+                ),
+                mM
+        );
 
         if (mDebugMode) {
             byte[] bytes = mArrayConverter.convertFromBoolean2DArray(decodedBits);

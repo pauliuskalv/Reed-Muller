@@ -23,11 +23,11 @@ public class Decoder implements IDecoder {
         IMatrix integerMatrix = new Matrix(new int[][] { integerValues });
 
         for (int i = 1; i <= m; i ++) {
-            integerMatrix = mHadamardMatrix.generate(
-                    i, m
-            ).multiply(
-                    integerMatrix.transpose()
-            ).transpose();
+            integerMatrix = integerMatrix.multiply(
+                    mHadamardMatrix.generate(
+                            i, m
+                    )
+            );
         }
 
         int[] result = integerMatrix.getData()[0];

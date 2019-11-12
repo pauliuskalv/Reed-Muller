@@ -26,6 +26,12 @@
                         </VBox>
                         <VBox prefHeight="405.0" prefWidth="395.0" HBox.hgrow="ALWAYS">
                            <children>
+                              <Label text="Transmitted bits:"/>
+                              <TextArea fx:id="mTransmittedBitsOverview" prefHeight="390.0" prefWidth="395.0" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="405.0" prefWidth="395.0" HBox.hgrow="ALWAYS">
+                           <children>
                               <Label text="Decoded bits:" />
                               <TextArea fx:id="mDecodedBitsOverview" prefHeight="390.0" prefWidth="395.0" VBox.vgrow="ALWAYS" />
                            </children>
@@ -38,7 +44,7 @@
                <children>
                   <Label text="Events:" />
                   <ListView fx:id="mEventListView" prefHeight="580.0" prefWidth="424.0" VBox.vgrow="ALWAYS" />
-                  <Label text="0" fx:id="mEventCountLabel">
+                  <Label fx:id="mEventCountLabel" text="0">
                      <graphic>
                         <Label text="Total count:" />
                      </graphic>

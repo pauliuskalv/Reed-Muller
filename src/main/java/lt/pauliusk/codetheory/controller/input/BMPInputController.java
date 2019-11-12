@@ -51,7 +51,7 @@ public class BMPInputController extends AbstractController {
     private void onFileChooserButtonClicked() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose a .bmp file");
-        fileChooser.setSelectedExtensionFilter(
+        fileChooser.getExtensionFilters().add(
                 new FileChooser.ExtensionFilter(".bmp files", "*.bmp")
         );
 
